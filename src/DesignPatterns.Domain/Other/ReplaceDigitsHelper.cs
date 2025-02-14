@@ -12,7 +12,7 @@ public static class ReplaceDigitsHelper
         for (var i = 0; i < sentence.Length; i++)
         {
             var letter = sentence[i].ToString();
-            if (int.TryParse(letter, out int num))
+            if (!string.IsNullOrEmpty(letter) && int.TryParse(letter, out int num))
             {
                 var word = words[num];
                 sentenceBuilder.Append(word);
