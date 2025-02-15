@@ -1,6 +1,7 @@
 ﻿using System.Text;
 
 namespace DesignPatterns.Domain.Other;
+
 public class ReplaceDigitsHelper
 {
     // TODO: fix this method - fix bugs, make more efficient, and return correct result
