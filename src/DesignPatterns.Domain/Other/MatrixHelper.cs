@@ -19,9 +19,11 @@ public class Matrix<T> : IEnumerable<T>
 
     public T this[int row, int col]
     {
-        get { return _data[col * Rows + row]; }
-        set { _data[col * Rows + row] = value; }
+        get { return _data[GetIndex(row, col)]; }
+        set { _data[GetIndex(row, col)] = value; }
     }
+
+    private int GetIndex(int row, int col) => col * Rows + row;
 
     public IEnumerator<T> GetEnumerator()
     {
@@ -30,11 +32,9 @@ public class Matrix<T> : IEnumerable<T>
 
     IEnumerator IEnumerable.GetEnumerator()
     {
-        for (int j = 0; j < Columns; j++) 
-        {
+        for (int j = 0; j < Columns; j++)
             for (int i = 0; i < Rows; i++)
-                yield return _data[j * Rows + i];
-        }
+                yield return _data[GetIndex(i, j)];
     }
 }
 
@@ -50,12 +50,9 @@ public class MatrixHelper
                 result[i, j] = 0;
                 for (int k = 0; k < a.Columns; k++)
                 {
-                    var aValue = a[i, k];
-                    var bValue = b[k, j];
-
                     result[i, j] += (a[i, k] * b[k, j]);
                 }
-                    
+
             }
         }
         return result;
