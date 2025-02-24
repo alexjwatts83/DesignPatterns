@@ -8,8 +8,9 @@ public enum AnimalType
 
 public class Animal
 {
-    public string Name { get; set; }
+    public string Name { get; set; } = string.Empty;
     public AnimalType AnimalType { get; set; }
+    public string Description { get; set; } = string.Empty;
 }
 
 public abstract class FunctionalBuilder<TEntity, TSelf>
@@ -50,5 +51,19 @@ public sealed class AnimalFunctionalBuilder :
     public AnimalFunctionalBuilder WithType(AnimalType type)
     {
         return Do(p => { p.AnimalType = type; });
+    }
+}
+
+public static class AnimalFunctionalBuilderExtensions
+{
+    public static AnimalFunctionalBuilder WithDescription
+      (this AnimalFunctionalBuilder builder, string description)
+    {
+        builder.Do(p =>
+        {
+            p.Description = description;
+        });
+
+        return builder;
     }
 }
