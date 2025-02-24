@@ -1,7 +1,8 @@
 ﻿using Xunit;
 using Shouldly;
+using DesignPatterns.Domain.Creational.Builder;
 
-namespace DesignPatterns.Domain.Creational.AbstractFactoryPattern.Tests;
+namespace DesignPatterns.Domain.Tests.Creational.Builder;
 
 public class FluentRecursiveBuilderTests
 {

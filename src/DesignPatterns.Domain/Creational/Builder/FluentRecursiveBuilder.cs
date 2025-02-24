@@ -1,4 +1,4 @@
-﻿namespace DesignPatterns.Domain.Creational.AbstractFactoryPattern;
+﻿namespace DesignPatterns.Domain.Creational.Builder;
 
 public class Person
 {
