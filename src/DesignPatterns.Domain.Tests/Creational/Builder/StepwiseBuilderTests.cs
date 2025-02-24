@@ -18,5 +18,7 @@ public class StepwiseBuilderTests
 
         // assert
         car.Type.ShouldBe(CarType.Crossover);
+        car.Brand.ShouldBe("Toyota");
+        car.WheelSize.ShouldBe(18);
     }
 }
