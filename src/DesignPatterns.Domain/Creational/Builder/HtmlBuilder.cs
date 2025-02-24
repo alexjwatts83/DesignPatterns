@@ -1,4 +1,4 @@
-﻿namespace DesignPatterns.Domain.Creational;
+﻿namespace DesignPatterns.Domain.Creational.Builder;
 
 public class HtmlBuilder
 {
