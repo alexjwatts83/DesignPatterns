@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace DesignPatterns.Domain.Creational.Builder;
+﻿namespace DesignPatterns.Domain.Creational.Builder;
 
 public enum AnimalType
 {

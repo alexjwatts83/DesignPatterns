@@ -1,7 +1,6 @@
-﻿using Shouldly;
-using Xunit;
+﻿using DesignPatterns.Domain.Other;
 
-namespace DesignPatterns.Domain.Other.Tests;
+namespace DesignPatterns.Domain.Tests.Other;
 
 public class ReplaceDigitsHelperTests
 {

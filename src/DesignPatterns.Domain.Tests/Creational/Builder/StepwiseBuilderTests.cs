@@ -1,7 +1,6 @@
-﻿using Shouldly;
-using Xunit;
+﻿using DesignPatterns.Domain.Creational.Builder;
 
-namespace DesignPatterns.Domain.Creational.Builder.Tests;
+namespace DesignPatterns.Domain.Tests.Creational.Builder;
 
 public class StepwiseBuilderTests
 {
