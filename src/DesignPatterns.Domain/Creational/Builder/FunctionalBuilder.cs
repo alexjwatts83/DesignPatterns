@@ -1,4 +1,7 @@
-﻿namespace DesignPatterns.Domain.Creational.Builder;
+﻿using System.Reflection.Emit;
+using System.Reflection;
+
+namespace DesignPatterns.Domain.Creational.Builder;
 
 public enum AnimalType
 {
@@ -17,7 +20,35 @@ public abstract class FunctionalBuilder<TEntity, TSelf>
     where TSelf : FunctionalBuilder<TEntity, TSelf>
     where TEntity : new()
 {
+    private delegate object ClassCreator();
+    private static readonly Dictionary<string, ClassCreator> ClassCreators = [];
+
     private readonly List<Func<TEntity, TEntity>> actions = [];
+
+    private static ClassCreator GetClassCreator(string typeName)
+    {
+        // get delegate from dictionary
+        if (ClassCreators.TryGetValue(typeName, out ClassCreator? value))
+            return value;
+
+        // get the default constructor of the type
+        Type t = Type.GetType(typeName!)!;
+        ConstructorInfo ctor = t.GetConstructor([])!;
+
+        // create a new dynamic method that constructs and returns the type
+        string methodName = t.Name + "Ctor";
+        DynamicMethod dm = new(methodName, t, [], typeof(object).Module);
+        ILGenerator lgen = dm.GetILGenerator();
+        lgen.Emit(OpCodes.Newobj, ctor);
+        lgen.Emit(OpCodes.Ret);
+
+        // add delegate to dictionary and return
+        ClassCreator creator = (ClassCreator)dm.CreateDelegate(typeof(ClassCreator));
+        ClassCreators.Add(typeName, creator);
+
+        // return a delegate to the method
+        return creator;
+    }
 
     private TSelf AddAction(Action<TEntity> action)
     {
@@ -34,7 +65,10 @@ public abstract class FunctionalBuilder<TEntity, TSelf>
 
     public TEntity Build()
     {
-        var entity = Activator.CreateInstance(typeof(TEntity));
+        var typeName = typeof(TEntity).FullName;
+        ClassCreator classCreator = GetClassCreator(typeName!);
+        var entity = classCreator();
+        //var entity = Activator.CreateInstance();
         _ = actions.Aggregate(entity, static (p, f) => f((TEntity)p));
 
         return (TEntity)entity;
