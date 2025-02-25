@@ -1,13 +1,13 @@
 ﻿namespace DesignPatterns.Domain.Creational.MethodFactoryPattern.Tests;
 
-public class MethodFactoryTests
+public class ExternalFactoryTests
 {
     [Fact()]
     public void NewCartesianPointTest()
     {
         // arrange
         // act
-        var point = Point.NewCartesianPoint(100, 200);
+        var point = Point2Factory.NewCartesianPoint(100, 200);
 
         // assert
         point.X.ShouldBe(100);
@@ -19,7 +19,7 @@ public class MethodFactoryTests
     {
         // arrange
         // act
-        var point = Point.NewPolarPoint(100, 200);
+        var point = Point2Factory.NewPolarPoint(100, 200);
 
         // assert
         point.X.ShouldBe(100 * Math.Cos(200));
