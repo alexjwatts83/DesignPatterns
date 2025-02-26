@@ -76,8 +76,8 @@ public class HotDrinkMachine
         if (!namedFactories.ContainsKey(type))
             throw new InvalidOperationException($"Drink type of '{type}' is not a valid type");
 
-        if (amount < 0)
-            throw new InvalidOperationException($"Amount must be greater than 0 but was '{amount}'");
+        if (amount <= 0)
+            throw new InvalidOperationException($"Amount must be greater than 0 but was {amount}");
 
         return namedFactories[type].Prepare(amount);
     }

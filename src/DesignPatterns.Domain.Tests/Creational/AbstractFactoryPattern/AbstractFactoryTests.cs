@@ -26,4 +26,30 @@ public class AbstractFactoryTests
             result.ShouldBeOfType<Tea>();
         }
     }
+
+    [Fact]
+    public void MakeDrinkInvalidTypeException()
+    {
+        // arrange
+        var machine = new HotDrinkMachine();
+
+        // act
+        var result = Should.Throw<InvalidOperationException>(() => machine.MakeDrink("INVALID", 100));
+
+        // assert
+        result.Message.ShouldBe("Drink type of 'INVALID' is not a valid type");
+    }
+
+    [Fact]
+    public void MakeDrinkInvalidAmountException()
+    {
+        // arrange
+        var machine = new HotDrinkMachine();
+
+        // act
+        var result = Should.Throw<InvalidOperationException>(() => machine.MakeDrink(nameof(Tea), -100));
+
+        // assert
+        result.Message.ShouldBe("Amount must be greater than 0 but was -100");
+    }
 }
